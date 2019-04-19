@@ -64,7 +64,30 @@ public class Connect extends HttpServlet
 		
 		IUtilisateurDao userDao = new MockUtilisateurDao();
 		
+		// Comparaison identifiants avec la base de données 
 		
+		// SI ok 
+		//request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+		
+		// Recuperation id_role
+			// Si role = 1 --> Compte Admin
+			
+		
+			// Si role = 0  -->Compte User
+			
+		
+		
+			
+		
+		
+		
+		// KO
+		//	request.getRequestDispatcher("index.jsp").forward(request, response); 
+		//  + Message indiquant connexion impossible
+		// Alertbox JS
+
+		
+
 		
 		if (user==null || user.contentEquals(""))
 		{
@@ -78,7 +101,8 @@ public class Connect extends HttpServlet
 			
 			//TODO Implementer la base de données
 			//request.getRequestDispatcher("listBlogs.jsp").forward(request, response);
-			request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
+			request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
+			
 		
 		}
 	}
