@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import fr.epsi.jeeProject.dao.IUtilisateurDao;
+import fr.epsi.jeeProject.dao.mockImpl.MockUtilisateurDao;
 import fr.epsi.jeeProject.listener.StartupListener;
 
 /**
@@ -60,7 +62,9 @@ public class Connect extends HttpServlet
 		String password = request.getParameter("password");
 		Logger.info("User "+user+" try to connect with password "+password);
 		
-		 
+		IUtilisateurDao userDao = new MockUtilisateurDao();
+		
+		
 		
 		if (user==null || user.contentEquals(""))
 		{
@@ -69,9 +73,13 @@ public class Connect extends HttpServlet
 		}
 		else
 		{
-			 //TODO Implementer la base de données
-			request.getRequestDispatcher("listBlogs.jsp").forward(request, response); 
-
+			userDao.getUtilisateur(user);
+			
+			
+			//TODO Implementer la base de données
+			//request.getRequestDispatcher("listBlogs.jsp").forward(request, response);
+			request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
+		
 		}
 	}
 

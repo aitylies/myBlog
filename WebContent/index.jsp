@@ -5,58 +5,82 @@
 <title>MyBlog</title>
 
  <link rel="stylesheet" type="text/css" href="css/styles.css">
-
+ <link href="https://fonts.googleapis.com/css?family=Montserrat:300, 400, 500" rel="stylesheet">
 </head>
 <body>
 
+<section class="user">
+  <div class="user_options-container">
+    <div class="user_options-text">
+      <div class="user_options-unregistered">
+        <h2 class="user_unregistered-title">Pas encore de compte ?</h2>
+        <p class="user_unregistered-text">Inscrivez-vous et rejoignez notre communauté de bloggueur !</p>
+        <button class="user_unregistered-signup" id="signup-button">S'inscrire</button>
+      </div>
 
-
-<div class="cont">
-    <div class="demo">
-        <div class="login">
-            <div class="login__check"></div>
-            <div class="login__form">
-            <form  action="Connect" method="post"> 
-            
-                <!-- Login -->  
-                <div class="login__row">
-                <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
-                <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
-                </svg>
-                <input type="text" name="login" class="login__input name" placeholder="Login"/>
-                </div>
-
-                <!-- MDP -->
-                <div class="login__row">
-                <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
-                <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
-                </svg>
-                <input type="password" name="password" class="login__input pass" placeholder="Mot de passe"/>
-                </div>
-                
-                <!-- Submit   -->
-                <button type="submit" class="login__submit">Go !</button>
-                <p class="login__signup">Pas encore inscrit ? &nbsp;<a>Je cree mon compte</a></p>
-            </form>
-            </div>
-        </div>
+      <div class="user_options-registered">
+        <h2 class="user_registered-title">Déjà un compte ?</h2>
+        <p class="user_registered-text">Connectes-toi vite !</p>
+        <button class="user_registered-login" id="login-button">Login</button>
+      </div>
     </div>
-</div>
-<script type="text/javascript">
-	<%
-	if (request.getAttribute("MESSAGE") != null)
-	{
-		String message = (String)request.getAttribute("MESSAGE");
-		if (message!=null)
-		{
-			out.print("alert( "+ message+")");
-		}
-	}
+
+<!-- Inscription  -->      
+    <div class="user_options-forms" id="user_options-forms">
+      <div class="user_forms-login">
+        <h2 class="forms_title">Login</h2>
+        <form class="forms_form" action="Connect">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input name="email" type="email" placeholder="Email" class="forms_field-input" required autofocus />
+            </div>
+            <div class="forms_field">
+              <input name="password" type="password" placeholder="Mot de passe" class="forms_field-input" required />
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <button type="button" class="forms_buttons-forgot">Mot de passe oublié ?</button>
+            <input type="submit" value="Go" class="forms_buttons-action">
+          </div>
+        </form>
+      </div>
+      
+<!-- Inscription  -->    
+      <div class="user_forms-signup">
+        <h2 class="forms_title">S'inscrire</h2>
+        <form class="forms_form">
+          <fieldset class="forms_fieldset">
+            <div class="forms_field">
+              <input type="text" placeholder="Nom" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input name="email" type="email" placeholder="Email" class="forms_field-input" required />
+            </div>
+            <div class="forms_field">
+              <input name="password" type="password" placeholder="Mot de passe"" class="forms_field-input" required />
+            </div>
+          </fieldset>
+          <div class="forms_buttons">
+            <input type="submit" value="Let's go !" class="forms_buttons-action">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+  <%
+  if (request.getAttribute("MESSAGE") != null)
+  {
+    String message = (String) request.getAttribute("MESSAGE1");
+    if (message!=null)
+    {
+      out.print("alert( "+ message+")");
+    }
+  }
 %>
 
-</script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/login.js"></script>
 </body>
 </html>
