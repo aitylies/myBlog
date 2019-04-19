@@ -25,11 +25,11 @@
       </div>
     </div>
 
-<!-- Inscription  -->      
+<!-- Connexion  -->      
     <div class="user_options-forms" id="user_options-forms">
       <div class="user_forms-login">
         <h2 class="forms_title">Login</h2>
-        <form class="forms_form" action="Connect">
+        <form class="forms_form" action="Connect" method="post">
           <fieldset class="forms_fieldset">
             <div class="forms_field">
               <input name="email" type="email" placeholder="Email" class="forms_field-input" required autofocus />
@@ -48,7 +48,7 @@
 <!-- Inscription  -->    
       <div class="user_forms-signup">
         <h2 class="forms_title">S'inscrire</h2>
-        <form class="forms_form">
+        <form class="forms_form" method="post" action="SignUp">
           <fieldset class="forms_fieldset">
             <div class="forms_field">
               <input type="text" placeholder="Nom" class="forms_field-input" required />

@@ -58,7 +58,7 @@ public class Connect extends HttpServlet
 	//	request.setAttribute("MESSAGE","Merci de renseigner votre login ou votre mdp" );
 	//	request.getRequestDispatcher("index.jsp").forward(request, response); 
 		
-		String user = request.getParameter("login");
+		String user = request.getParameter("email");
 		String password = request.getParameter("password");
 		Logger.info("User "+user+" try to connect with password "+password);
 		

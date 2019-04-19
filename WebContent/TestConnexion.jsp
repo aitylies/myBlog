@@ -9,6 +9,7 @@
 <body>
 
 	<center>
+		<h1>Confirmation connexion</h1>
 		<h1>Connection Status :</h1>
 		<img src="https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif"
 			alt="fyck " />
