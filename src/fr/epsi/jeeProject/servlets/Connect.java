@@ -50,7 +50,29 @@ public class Connect extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+	//	Logger.info("Je suis dans ma servlet POST");
+	//	request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
+	//	request.setAttribute("MESSAGE","Merci de renseigner votre login ou votre mdp" );
+	//	request.getRequestDispatcher("index.jsp").forward(request, response); 
+		
+		String user = request.getParameter("login");
+		String password = request.getParameter("password");
+		Logger.info("User "+user+" try to connect with password "+password);
+		
+		 
+		
+		if (user==null || user.contentEquals(""))
+		{
+			request.setAttribute("MESSAGE", "Merci de renseigner le login");
+			request.getRequestDispatcher("index.jsp").forward(request,response);
+		}
+		else
+		{
+			 //TODO Implementer la base de données
+			request.getRequestDispatcher("listBlogs.jsp").forward(request, response); 
+
+		}
 	}
 
 }
