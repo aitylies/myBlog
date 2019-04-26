@@ -81,15 +81,15 @@ public class Connect extends HttpServlet
 		{
 			if(userMail.equals(userBean.getEmail()) && userPassword.equals(userBean.getPassord()))
 			{
-//				maSession.setAttribute("isConnected",true );
-//				if(userBean.getAdmin())
-//				{
-//					maSession.setAttribute("isAdmin",true );
-//				}
-//				else
-//				{
-//					maSession.setAttribute("isAdmin",false );
-//				}
+				maSession.setAttribute("isConnected",true );
+				if(userBean.getAdmin())
+				{
+					maSession.setAttribute("isAdmin",true );
+				}
+				else
+				{
+					maSession.setAttribute("isAdmin",false );
+				}
 				
 				Logger.info("CONNEXION OK");
 				System.out.println("Connexion ok");

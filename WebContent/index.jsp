@@ -67,15 +67,19 @@
       </div>
     </div>
   </div>
-</section><script>
+</section><script type="text/javascript">
   <%
+	
   if (request.getAttribute("Erreur") != null)
   {
     String message = (String) request.getAttribute("Erreur");
-    if (message!=null)
-    {
-      out.print("alert( "+message+")");
-    }
+    System.out.println("coucou"+message);
+    //out.print("alert( "+message+")");
+//    out.println("<script type=\"text/javascript\">");
+      out.println("alert('User or password incorrect');");
+      request.removeAttribute("Erreur");
+ //   out.println("location='index.jsp';");
+//    out.println("</script>");
   }
 %></script>
 
