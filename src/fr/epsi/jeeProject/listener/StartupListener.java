@@ -38,7 +38,14 @@ public class StartupListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
          System.out.println("Démarrage");
          Logger.debug("Démarrage");
+         try {
+			Class.forName("org.hsqldb.jdbcDriver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
          //Logger.info("Démarrage");
+         
     }
 	
 }

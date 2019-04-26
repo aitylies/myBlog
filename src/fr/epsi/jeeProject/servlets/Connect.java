@@ -6,11 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import fr.epsi.jeeProject.beans.Utilisateur;
 import fr.epsi.jeeProject.dao.IUtilisateurDao;
+import fr.epsi.jeeProject.dao.HSQLImpl.UtilisateurDao;
 import fr.epsi.jeeProject.dao.mockImpl.MockUtilisateurDao;
 import fr.epsi.jeeProject.listener.StartupListener;
 
@@ -54,57 +57,56 @@ public class Connect extends HttpServlet
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	//	Logger.info("Je suis dans ma servlet POST");
-	//	request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
+	//	request.getRequestD‚ispatcher("TestConnexion.jsp").forward(request, response);
 	//	request.setAttribute("MESSAGE","Merci de renseigner votre login ou votre mdp" );
 	//	request.getRequestDispatcher("index.jsp").forward(request, response); 
 		
-		String user = request.getParameter("email");
-		String password = request.getParameter("password");
-		Logger.info("User "+user+" try to connect with password "+password);
+		String userMail = request.getParameter("email");
+		String userPassword = request.getParameter("password");
+		Logger.info("User "+userMail+" try to connect with password "+userPassword);
 		
-		IUtilisateurDao userDao = new MockUtilisateurDao();
+		IUtilisateurDao userDao = new UtilisateurDao();
+		Utilisateur userBean = userDao.getUtilisateur(userMail);
 		
-		// Comparaison identifiants avec la base de données 
+		HttpSession maSession = request.getSession();
 		
-		// SI ok 
-		//request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
-		
-		// Recuperation id_role
-			// Si role = 1 --> Compte Admin
-			
-		
-			// Si role = 0  -->Compte User
-			
-		
-		
-			
-		
-		
-		
-		// KO
-		//	request.getRequestDispatcher("index.jsp").forward(request, response); 
-		//  + Message indiquant connexion impossible
-		// Alertbox JS
-
 		
 
-		
-		if (user==null || user.contentEquals(""))
+		if (userBean==null || userMail.contentEquals(""))
 		{
 			request.setAttribute("MESSAGE", "Merci de renseigner le login");
 			request.getRequestDispatcher("index.jsp").forward(request,response);
 		}
 		else
 		{
-			userDao.getUtilisateur(user);
-			
-			
-			//TODO Implementer la base de données
-			//request.getRequestDispatcher("listBlogs.jsp").forward(request, response);
-			request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
-			
-		
-		}
-	}
+			if(userMail.equals(userBean.getEmail()) && userPassword.equals(userBean.getPassord()))
+			{
+//				maSession.setAttribute("isConnected",true );
+//				if(userBean.getAdmin())
+//				{
+//					maSession.setAttribute("isAdmin",true );
+//				}
+//				else
+//				{
+//					maSession.setAttribute("isAdmin",false );
+//				}
+				
+				Logger.info("CONNEXION OK");
+				System.out.println("Connexion ok");
+				request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
 
+			}
+			else
+			{
+				Logger.info("CONNEXION KO");
+				System.out.println("Connexion KO");
+				request.setAttribute("Erreur", "Login ou mot de passe incorrect");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+
+			}
+			}
+		}
+		
 }
+
+

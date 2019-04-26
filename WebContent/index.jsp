@@ -67,17 +67,17 @@
       </div>
     </div>
   </div>
-</section>
+</section><script>
   <%
-  if (request.getAttribute("MESSAGE") != null)
+  if (request.getAttribute("Erreur") != null)
   {
-    String message = (String) request.getAttribute("MESSAGE1");
+    String message = (String) request.getAttribute("Erreur");
     if (message!=null)
     {
-      out.print("alert( "+ message+")");
+      out.print("alert( "+message+")");
     }
   }
-%>
+%></script>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
