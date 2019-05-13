@@ -39,7 +39,7 @@
             </div>
           </fieldset>
           <div class="forms_buttons">
-            <button type="button" class="forms_buttons-forgot">Mot de passe oublié ?</button>
+            <button type="button" class="forms_buttons-forgot"></button>
             <input type="submit" value="Go" class="forms_buttons-action">
           </div>
         </form>
@@ -58,17 +58,36 @@
               <input type="email" name="email_signup" placeholder="Email" class="forms_field-input" required />
             </div>
             <div class="forms_field">
-              <input type="password" name="password_signup" placeholder="Mot de passe" class="forms_field-input" required />
+              <input type="password" name="password_signup"  id="password_signup" placeholder="Mot de passe" class="forms_field-input" required />
+              <input type="password" name="password_signup2" id="password_signup2" placeholder="Confirmer" class="forms_field-input" onchange="check_pass()" required />
             </div>
           </fieldset>
           <div class="forms_buttons">
-            <input type="submit" value="Let's go !" class="forms_buttons-action">
+            <input onclick="check_pass()" name="submit" id="submit" type="submit" value="Let's go !" class="forms_buttons-action" disabled>
           </div>
         </form>
       </div>
     </div>
   </div>
 </section>
+<script type="text/javascript">
+function check_pass() {
+    if (document.getElementById('password_signup').value ==
+            document.getElementById('password_signup2').value) {
+        document.getElementById('submit').disabled = false;
+        
+    } else {
+    	alert("Les mots de passe ne correpondent pas");
+        document.getElementById('submit').disabled = true;
+    }
+}
+</script>
+
+
+
+
+
+
 
 <script type="text/javascript">
   <%

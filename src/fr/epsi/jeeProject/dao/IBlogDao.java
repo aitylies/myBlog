@@ -9,8 +9,9 @@ import fr.epsi.jeeProject.beans.Utilisateur;
 
 public interface IBlogDao {
 
-	Blog getBlog(Integer id);
-	List<Blog> getBlogs(Utilisateur utilisateur);
+	Blog getBlog(Integer id) throws SQLException;
+	List<Blog> getAllBlogs() throws SQLException;
+	List<Blog> getBlogs(Utilisateur utilisateur) throws SQLException;;
 	Integer createBlog(Blog blog) throws SQLException;
 	void updateBlog(Blog blog) throws SQLException;
 	void deleteBlog(Blog blog) throws SQLException;

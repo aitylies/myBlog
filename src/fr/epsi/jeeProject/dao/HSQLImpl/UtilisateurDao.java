@@ -112,4 +112,42 @@ public class UtilisateurDao implements IUtilisateurDao {
 
 	}
 
+	@Override
+	public boolean isExist(Utilisateur utilisateur) throws SQLException {
+		Connection con = null;
+			
+			try {
+				con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+				PreparedStatement ps = con.prepareStatement("SELECT * FROM USERS WHERE EMAIL = ?");
+				ps.setString(1, utilisateur.getEmail());
+				ResultSet rs = ps.executeQuery();
+				if (rs.next()) 
+				{
+					return true;	
+				}
+				rs.close();
+				con.close();
+			}
+			catch (SQLException e) 
+			{
+				logger.error("Error while getting user account ", e);
+			}
+			finally 
+			{
+				try 
+				{
+					if (con != null && !con.isClosed()) 
+					{
+						con.close();
+					}
+				}
+				catch (Exception e) 
+				{
+					logger.warn("Error while closing connection");
+				}
+			}
+			
+			return false; 
+	}
+
 }

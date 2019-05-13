@@ -65,4 +65,10 @@ public class MockUtilisateurDao implements IUtilisateurDao {
 		}
 		return listOfUtilisateurs;
 	}
+
+	@Override
+	public boolean isExist(Utilisateur utilisateur) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

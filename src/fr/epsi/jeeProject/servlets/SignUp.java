@@ -61,7 +61,7 @@ public class SignUp extends HttpServlet
 		String userMail = request.getParameter("email_signup");
 		String userPassword = request.getParameter("password_signup");
 		
-		Logger.info("Name "+userName+" try to connect with Email : "+userMail+" password "+userPassword);
+		Logger.info("Name "+userName+" try to signup with Email : "+userMail+" password "+userPassword);
 		
 		IUtilisateurDao userDao = new UtilisateurDao();
 		Utilisateur userBean = new Utilisateur() ;
@@ -69,14 +69,28 @@ public class SignUp extends HttpServlet
 		userBean.setNom(userName);
 		userBean.setEmail(userMail);
 		userBean.setPassord(userPassword); 
+		
+		
 		try {
-			userDao.createUtilisateur(userBean);
-			request.setAttribute("Inscription", "Votre compte a été crée. Vous pouvez désormais vous connecté");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
+			if(userDao.isExist(userBean))
+			{
+				request.setAttribute("Inscription", "Votre mail est deja rattaché à un compte");
+				Logger.info("Le compte "+userMail+" existe deja. Impossible de creer ce compte");
+			}
+			else
+			{
+				userDao.createUtilisateur(userBean);
+				request.setAttribute("Inscription", "Votre compte a été crée. Vous pouvez désormais vous connecter");
+				Logger.info("Le compte "+userMail+" a ete correctement ajouter");
+			}
 		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}  
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+
+
 		
 		
 		

@@ -103,4 +103,10 @@ public class MockBlogDao implements IBlogDao {
 		return listOfBlogs;
 	}
 
+	@Override
+	public List<Blog> getAllBlogs() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

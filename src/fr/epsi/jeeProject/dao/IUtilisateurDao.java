@@ -10,5 +10,6 @@ public interface IUtilisateurDao {
 	void createUtilisateur(Utilisateur utilisateur) throws SQLException;
 	void updateUtilisateur(Utilisateur utilisateur) throws SQLException;
 	void deleteUtilisateur(Utilisateur utilisateur) throws SQLException;
+	public boolean isExist(Utilisateur utilisateur) throws SQLException;
 	
 }

@@ -2,6 +2,8 @@ package fr.epsi.jeeProject.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -49,10 +51,35 @@ public class Dashboard extends HttpServlet {
 		Utilisateur userBean = new Utilisateur() ;
 		userBean.setEmail("aitylies@hotmail.fr");
 		
+		List<Blog> maListe = new ArrayList<Blog>(); 
+		
+		
 		IBlogDao blogDao = new BlogDao(); 
 		Blog bl = new Blog(); 
 
-		request.setAttribute("Article", blogDao.getBlogs(userBean));
+		try {
+			maListe = blogDao.getAllBlogs();
+			//System.out.println("Iciiii -----> "+maListe.get(0).getTitre().toString());
+			for(int i=0; i<=maListe.size(); i++)
+			{
+				System.out.println("Iciiii1 -----> "+maListe.get(i).getTitre().toString());
+				System.out.println("Iciiii2 -----> "+maListe.get(i).getDateCreation().toString());
+				System.out.println("Iciiii3 -----> "+maListe.get(i).getDescription().toString());
+				System.out.println("Iciiii4 -----> "+maListe.get(i).getCreateur().toString());
+				i+=1; 
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
+		
+		
+		try {
+			request.setAttribute("Article", blogDao.getBlogs(userBean));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//System.out.println("ICIIIIII"+blogDao.getBlogs(userBean).get(0));
 		request.getRequestDispatcher("accueil.jsp").forward(request, response);
 		//		request.getRequestDispatcher("index.jsp").forward(request, response);

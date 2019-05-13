@@ -98,19 +98,19 @@
                <!-- respond -->
                <div class="respond">
 
-                  <form name="contactForm" id="contactForm" method="post" action="">
+                  <form name="contactForm" id="contactForm" method="post" action="CreerArticle">
   					   <fieldset>
 
                      <div class="form-field">
-  						      <input name="cName" type="text" id="cName" class="full-width" placeholder="Titre de l'article" value="">
+  						      <input name="cTitre" type="text" id="cTitre" class="full-width" placeholder="Titre de l'article" value="" maxlength="100">
                      </div>
 
                      <div class="form-field">
-  						      <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Email" value="">
+  						      <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Email" value="" maxlength="30">
                      </div>
 
                      <div class="message form-field">
-                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Votre article" ></textarea>
+                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Votre article" maxlength="240"></textarea>
                      </div>
 
                      <button type="submit" class="submit button-primary">Envoyer</button>
@@ -125,7 +125,17 @@
 
 
    </section> <!-- end content -->
+<script type="text/javascript">
+  <%
 
+  
+  if (request.getAttribute("Creation") != null)
+  {
+    String message = (String) request.getAttribute("Creation");
+    request.removeAttribute("Creation");  
+    out.println("alert('"+message+"');");   
+  }
+	%></script>
 
 
    <div id="preloader"> 

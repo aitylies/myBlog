@@ -21,6 +21,7 @@ public class BlogDao implements IBlogDao
 	private static final Logger logger = LogManager.getLogger(UtilisateurDao.class);
 
 	
+	
 	public List<Blog> getBlogs(Utilisateur utilisateur)
 	{
 		List<Blog> resultat = new ArrayList<Blog>();
@@ -31,6 +32,46 @@ public class BlogDao implements IBlogDao
 			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM BLOG WHERE email = ?");
 			ps.setString(1, utilisateur.getEmail());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				myBlog = new Blog();
+				myBlog.setId(rs.getInt(1));
+				myBlog.setTitre(rs.getString(2));
+				myBlog.setDescription(rs.getString(3));
+				myBlog.setDateCreation(rs.getDate(5));
+				resultat.add(myBlog); 
+			}
+			rs.close();
+			con.close();
+		} catch (SQLException e) {
+			myBlog = null;
+			logger.error("Error while getting blog ", e);
+		}
+		finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+			} catch (Exception e) {
+				logger.warn("Error while closing connection");
+			}
+		}
+
+		return resultat;
+
+
+	}
+	
+	
+	public List<Blog> getAllBlogs()
+	{
+		List<Blog> resultat = new ArrayList<Blog>();
+
+		Blog myBlog = null; 
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM BLOG");
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				myBlog = new Blog();
@@ -105,8 +146,35 @@ public class BlogDao implements IBlogDao
 	
 	public Integer createBlog(Blog blog) throws SQLException
 	{
-		// TODO 
-		return null; 
+		Blog myBlog = null; 
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO BLOG VALUES (NEXT VALUE FOR ID_BLOG, ?, ?, ?, CURDATE(), CURDATE(), ?)");
+			ps.setString(1,blog.getTitre());
+			ps.setString(2, blog.getDescription());
+			ps.setString(3, blog.getCreateur().getEmail());
+			ps.setInt(4, 1);
+			logger.warn(ps.toString());
+			ps.executeUpdate();
+			con.close();
+			
+		} catch (SQLException e) {
+			myBlog = null;
+			logger.error("Error while getting blog ", e);
+		}
+		finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+			} catch (Exception e) {
+				logger.warn("Error while closing connection");
+			}
+		}
+
+		return -1; 
+		
 	}
 	public void updateBlog(Blog blog) throws SQLException
 	{
