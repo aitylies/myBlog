@@ -47,13 +47,14 @@ public class Connect extends HttpServlet
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Logger.info("Je suis dans ma servlet");
-		request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 	//	Logger.info("Je suis dans ma servlet POST");
@@ -61,8 +62,9 @@ public class Connect extends HttpServlet
 	//	request.setAttribute("MESSAGE","Merci de renseigner votre login ou votre mdp" );
 	//	request.getRequestDispatcher("index.jsp").forward(request, response); 
 		
-		String userMail = request.getParameter("email");
-		String userPassword = request.getParameter("password");
+		String userMail = request.getParameter("email_signin");
+		String userPassword = request.getParameter("password_signin");
+//		String userPassword = request.getParameter("password_signup");
 		Logger.info("User "+userMail+" try to connect with password "+userPassword);
 		
 		IUtilisateurDao userDao = new UtilisateurDao();
@@ -82,19 +84,11 @@ public class Connect extends HttpServlet
 			if(userMail.equals(userBean.getEmail()) && userPassword.equals(userBean.getPassord()))
 			{
 				maSession.setAttribute("isConnected",true );
-				if(userBean.getAdmin())
-				{
-					maSession.setAttribute("isAdmin",true );
-				}
-				else
-				{
-					maSession.setAttribute("isAdmin",false );
-				}
 				
 				Logger.info("CONNEXION OK");
 				System.out.println("Connexion ok");
-				request.getRequestDispatcher("Dashboard.jsp").forward(request, response);
-
+				// Include : Pour rediriger vers un Servlet
+				request.getRequestDispatcher("/Dashboard").include(request, response);
 			}
 			else
 			{
@@ -104,8 +98,8 @@ public class Connect extends HttpServlet
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 
 			}
-			}
 		}
+	}
 		
 }
 

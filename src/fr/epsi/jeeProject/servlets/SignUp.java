@@ -1,16 +1,21 @@
 package fr.epsi.jeeProject.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import fr.epsi.jeeProject.beans.Utilisateur;
 import fr.epsi.jeeProject.dao.IUtilisateurDao;
+import fr.epsi.jeeProject.dao.HSQLImpl.UtilisateurDao;
 import fr.epsi.jeeProject.dao.mockImpl.MockUtilisateurDao;
 import fr.epsi.jeeProject.listener.StartupListener;
 
@@ -50,37 +55,31 @@ public class SignUp extends HttpServlet
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-	//	Logger.info("Je suis dans ma servlet POST");
-	//	request.getRequestDispatcher("TestConnexion.jsp").forward(request, response);
-	//	request.setAttribute("MESSAGE","Merci de renseigner votre login ou votre mdp" );
-	//	request.getRequestDispatcher("index.jsp").forward(request, response); 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		String userName = request.getParameter("name_signup");
+		String userMail = request.getParameter("email_signup");
+		String userPassword = request.getParameter("password_signup");
 		
-		String user = request.getParameter("email");
-		String password = request.getParameter("password");
-		Logger.info("User "+user+" try to connect with password "+password);
+		Logger.info("Name "+userName+" try to connect with Email : "+userMail+" password "+userPassword);
 		
-		IUtilisateurDao userDao = new MockUtilisateurDao();
+		IUtilisateurDao userDao = new UtilisateurDao();
+		Utilisateur userBean = new Utilisateur() ;
 		
-		
-		
-		if (user==null || user.contentEquals(""))
-		{
-			request.setAttribute("MESSAGE", "Merci de renseigner le login");
-			request.getRequestDispatcher("index.jsp").forward(request,response);
+		userBean.setNom(userName);
+		userBean.setEmail(userMail);
+		userBean.setPassord(userPassword); 
+		try {
+			userDao.createUtilisateur(userBean);
+			request.setAttribute("Inscription", "Votre compte a été crée. Vous pouvez désormais vous connecté");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		else
-		{
-			userDao.getUtilisateur(user);
-			
-			
-			//TODO Implementer la base de données
-			//request.getRequestDispatcher("listBlogs.jsp").forward(request, response);
-			request.getRequestDispatcher("TestInscription.jsp").forward(request, response);
 		
-		}
+		
+		
 	}
 
 }
