@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +43,8 @@ public class UtilisateurDao implements IUtilisateurDao {
 		} catch (SQLException e) {
 			myUser = null;
 			logger.error("Error while getting user " + email, e);
-		} finally {
+		}
+		finally {
 			try {
 				if (con != null && !con.isClosed()) {
 					con.close();
@@ -54,8 +60,44 @@ public class UtilisateurDao implements IUtilisateurDao {
 
 	@Override
 	public void createUtilisateur(Utilisateur utilisateur) throws SQLException {
-// TODO Auto-generated method stub
+		
+		
+		LocalDateTime ldt = LocalDateTime.now();
+		Connection con = null;
+		String date =  DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.FRENCH).format(ldt);
+		
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO USERS(EMAIL, NOM, DATE_CREATION, PASSWORD, IS_ADMIN) VALUES (?,?,?,?,?)"); 
+			ps.setString(1, utilisateur.getEmail());
+			ps.setString(2, utilisateur.getNom());
+			ps.setString(3, date);
+			ps.setString(4, utilisateur.getPassord());
+			ps.setString(5, "false");
+			ps.executeUpdate();
+			logger.warn(ps.toString());
+			con.close();
 
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (con != null && !con.isClosed()) 
+				{
+					con.close();
+				}
+			} 
+			catch (Exception e) 
+			{
+				logger.warn("2 - Error while closing connection");
+			}
+		}
 	}
 
 	@Override
