@@ -102,13 +102,13 @@
 	
 
     // String message = (String) request.getAttribute("Article");
-  	// List<Blog> blog = request.getAttribute("Article"); 
-	
-	
+  	//List<Blog> blog = request.getAttribute("Article"); 
+
+      out.println("alert('"+request.getAttribute("ListeBLog")+"');");   
+  
 		
   	
-  	//request.getAttribute("Article").get
- 
+  	
 	%></script>
 
  <!-- Beginning article -->

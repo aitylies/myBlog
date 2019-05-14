@@ -73,7 +73,7 @@ public class BlogDao implements IBlogDao
 			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM BLOG");
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				myBlog = new Blog();
 				myBlog.setId(rs.getInt(1));
 				myBlog.setTitre(rs.getString(2));

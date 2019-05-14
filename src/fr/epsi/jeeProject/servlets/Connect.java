@@ -64,7 +64,6 @@ public class Connect extends HttpServlet
 		
 		String userMail = request.getParameter("email_signin");
 		String userPassword = request.getParameter("password_signin");
-//		String userPassword = request.getParameter("password_signup");
 		Logger.info("User "+userMail+" try to connect with password "+userPassword);
 		
 		IUtilisateurDao userDao = new UtilisateurDao();
