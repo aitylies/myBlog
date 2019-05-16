@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=iso-8859-1"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
-
-		<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>MyBlog</title>
 
    <!--- basic page needs
@@ -57,7 +56,7 @@
 					<li class="current"><a href="index.html" title="">Accueil</a></li>									
 					<li class="has-children"><a href="single-standard.html" title="">Blog</a></li>
 					<!-- <li><a href="style-guide.html" title="">Styles</a></li> -->
-					<li><a href="about.html" title="">Mes posts</a></li>	
+					<li><a href="article.jsp" title="">Mes posts</a></li>	
 					<li><a href="CreerArticle" title="">Rediger un post</a></li>										
 					<li><a href="contact.html" title="">Adminisration</a></li>
 				</ul>

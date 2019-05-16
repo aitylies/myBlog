@@ -21,7 +21,43 @@ public class BlogCommentaireDao implements IBlogCommentaireDao
 {
 	private static final Logger logger = LogManager.getLogger(UtilisateurDao.class);
 
+	public List<Reponse> getReponse(Blog blog)
+	{
+		List<Reponse> resultat = new ArrayList<Reponse>();
 	
+		Reponse myReponse = null; 
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM BLOG_COMMENTAIRE WHERE ID = ?");
+			ps.setLong(1, blog.getId());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				myReponse = new Reponse();
+				myReponse.setCommentaire(rs.getString(2));
+				myReponse.setPublication(rs.getDate(4));
+				resultat.add(myReponse); 
+			}
+			rs.close();
+			con.close();
+	} catch (SQLException e) {
+		myReponse = null;
+		logger.error("Error while getting blog ", e);
+	}
+	finally {
+		try {
+			if (con != null && !con.isClosed()) {
+				con.close();
+			}
+		} catch (Exception e) {
+			logger.warn("Error while closing connection");
+		}
+	}
+
+	return resultat;
+
+
+}
 	public Integer createReponse(Reponse reponse) throws SQLException
 	{
 		Reponse myReponse = null; 
@@ -54,20 +90,35 @@ public class BlogCommentaireDao implements IBlogCommentaireDao
 		return -1; 
 		
 	}
-	public void updateBlog(Blog blog) throws SQLException
-	{
-		// TODO 
-	}
-	
+
 	public void deleteBlog(Blog blog) throws SQLException
 	{
-		// TODO 
+		Reponse myReponse = null; 
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
+			PreparedStatement ps = con.prepareStatement("DELETE FROM BLOG_COMMENTAIRES WHERE ID = ?");
+			ps.setInt(1,blog.getId());
+
+			logger.warn(ps.toString());
+			ps.executeUpdate();
+			con.close();
+			
+		} catch (SQLException e) {
+			myReponse = null;
+			logger.error("Error while deleting blog ", e);
+		}
+		finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+			} catch (Exception e) {
+				logger.warn("Error while closing connection");
+			}
+		}
 	}
 	
-	public void addReponse(Blog blog, Reponse reponse) throws SQLException
-	{
-		// TODO 
-	}
 	
 	
 	
