@@ -298,9 +298,11 @@
 
                	<h3>Laissez votre commentaire</h3>
 
-                  <form name="contactForm" id="contactForm" method="post" action="">
+                  <form name="CreerCom" id="CreerCom" method="post" action="CreerCom">
   					   <fieldset>
-
+					<div class="form-field">
+  						      <input name="cId" type="hidden" id="cId" class="full-width" value="1">
+                     </div>
                      <div class="form-field">
   						      <input name="cName" type="text" id="cName" class="full-width" placeholder="Votre nom" value="">
                      </div>
