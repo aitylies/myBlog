@@ -47,7 +47,20 @@ public class Connect extends HttpServlet
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Logger.info("Je suis dans ma servlet");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+		HttpSession maSession = request.getSession();
+		
+		if( maSession.getAttribute("isConnected").toString() == "true" )
+		{
+			request.getRequestDispatcher("accueil.jsp").include(request, response);
+			Logger.info("Je suis deja co");
+		}
+		else
+		{
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+			Logger.info("Je suis pas co");
+		}
+
 	}
 
 	/**
@@ -70,34 +83,44 @@ public class Connect extends HttpServlet
 		Utilisateur userBean = userDao.getUtilisateur(userMail);
 		
 		HttpSession maSession = request.getSession();
+		maSession.setAttribute("isConnected", false);
 		
 		
-
-		if (userBean==null || userMail.contentEquals(""))
+		if( maSession.getAttribute("isConnected").toString() == "true" )
 		{
-			request.setAttribute("MESSAGE", "Merci de renseigner le login");
-			request.getRequestDispatcher("index.jsp").forward(request,response);
+			request.getRequestDispatcher("/Dashboard").include(request, response);
+
 		}
 		else
 		{
-			if(userMail.equals(userBean.getEmail()) && userPassword.equals(userBean.getPassord()))
+			if (userBean==null || userMail.contentEquals(""))
 			{
-				maSession.setAttribute("isConnected",true );
-				
-				Logger.info("CONNEXION OK");
-				System.out.println("Connexion ok");
-				// Include : Pour rediriger vers un Servlet
-				request.getRequestDispatcher("/Dashboard").include(request, response);
+				request.setAttribute("MESSAGE", "Merci de renseigner le login");
+				request.getRequestDispatcher("index.jsp").forward(request,response);
 			}
 			else
 			{
-				Logger.info("CONNEXION KO");
-				System.out.println("Connexion KO");
-				request.setAttribute("Erreur", "Login ou mot de passe incorrect");
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				if(userMail.equals(userBean.getEmail()) && userPassword.equals(userBean.getPassord()))
+				{
+					maSession.setAttribute("isConnected",true );
+					
+					Logger.info("CONNEXION OK");
+					System.out.println("Connexion ok");
+					// Include : Pour rediriger vers un Servlet
+					request.getRequestDispatcher("/Dashboard").include(request, response);
+				}
+				else
+				{
+					Logger.info("CONNEXION KO");
+					System.out.println("Connexion KO");
+					request.setAttribute("Erreur", "Login ou mot de passe incorrect");
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 
+				}
 			}
 		}
+		
+		
 	}
 		
 }

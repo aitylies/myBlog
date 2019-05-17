@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.epsi.jeeProject.beans.Blog;
 import fr.epsi.jeeProject.beans.Utilisateur;
@@ -39,7 +40,7 @@ public class Dashboard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		doPost( request,  response); 
 	}
 
 	/**
@@ -53,6 +54,7 @@ public class Dashboard extends HttpServlet {
 		
 		List<Blog> maListe = new ArrayList<Blog>(); 
 		
+		HttpSession maSession = request.getSession();
 		
 		IBlogDao blogDao = new BlogDao(); 
 		Blog bl = new Blog(); 

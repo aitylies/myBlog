@@ -10,7 +10,7 @@
    <!--- basic page needs
    ================================================== -->
    <meta charset="utf-8">
-	<title>Scooter électrique</title>
+	<title>MyBlog</title>
 	<meta name="description" content="">  
 	<meta name="author" content="">
 
@@ -59,8 +59,11 @@
 					<li><a href="article.jsp" title="">Mes posts</a></li>	
 					<li><a href="CreerArticle" title="">Rediger un post</a></li>										
 					<li><a href="contact.html" title="">Adminisration</a></li>
+					<li><a href="Disconnect" onclick="deconnexion()" >Deconnexion</a></li>
 				</ul>
 			</nav> <!-- end main-nav-wrap -->
+
+
 
 			<div class="search-wrap">
 				
@@ -103,8 +106,9 @@
     // String message = (String) request.getAttribute("Article");
   	//List<Blog> blog = request.getAttribute("Article"); 
 
-      out.println("alert('"+request.getAttribute("ListeBLog")+"');");   
+      out.println("alert('"+session.getAttribute("isConnected")+"');");   
   
+  //    out.println("alert('test');");   
 		
   	
   	
