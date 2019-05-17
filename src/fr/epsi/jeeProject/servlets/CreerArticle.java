@@ -76,7 +76,7 @@ public class CreerArticle extends HttpServlet {
 			e.printStackTrace();
 		} 
 		request.setAttribute("Creation", "Votre article a bien ete enregistree");
-		request.getRequestDispatcher("creerArticle.jsp").forward(request, response);			
+		request.getRequestDispatcher("/Dashboard").include(request, response);			
 
 	}
 

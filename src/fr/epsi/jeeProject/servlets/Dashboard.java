@@ -62,14 +62,16 @@ public class Dashboard extends HttpServlet {
 		try {
 			maListe = blogDao.getAllBlogs();
 			//System.out.println("Iciiii -----> "+maListe.get(0).getTitre().toString());
-			System.out.println("TAILLE DE LA LISTE"+maListe.size());
+			System.out.println("Liste des blogs (" + maListe.size() + ") :");
 			request.setAttribute("ListeBlog", maListe);
 
 			for(int i=0; i<=maListe.size()-1; i++)
 			{
-				System.out.println("Iciiii1 -----> "+maListe.get(i).getTitre().toString());
-				System.out.println("Iciiii2 -----> "+maListe.get(i).getDateCreation().toString());
-				System.out.println("Iciiii3 -----> "+maListe.get(i).getDescription().toString());
+				System.out.println("Blog n°" + i + " :");
+				System.out.println("- Id : " +maListe.get(i).getId().toString());
+				System.out.println("- Titre : "+maListe.get(i).getTitre().toString());
+				System.out.println("- Description : "+maListe.get(i).getDescription().toString());
+				System.out.println("- Date de création : "+maListe.get(i).getDateCreation().toString());
 				//System.out.println("Iciiii4 -----> "+maListe.get(i).getCreateur().toString());
 				
 			}

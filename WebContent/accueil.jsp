@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=iso-8859-1"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import ="java.util.ArrayList"%>
+<%@ page import ="java.util.List"%>
+<%@ page import ="fr.epsi.jeeProject.beans.Blog"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -99,97 +104,31 @@
          <div class="bricks-wrapper">
 
          	<div class="grid-sizer"></div>
-<script type="text/javascript">
-  <%
 	
-
-    // String message = (String) request.getAttribute("Article");
-  	//List<Blog> blog = request.getAttribute("Article"); 
-
-      out.println("alert('"+session.getAttribute("isConnected")+"');");   
-  
-  //    out.println("alert('test');");   
-		
-  	
-  	
-	%></script>
-
- <!-- Beginning article -->
-         	<article class="brick entry format-standard animate-this">
-
-               <div class="entry-text">
-               	<div class="entry-header">
-
-               		<div class="entry-meta">
-               			<span class="cat-links">
-               				<a href="#" style="color:grey">20/09/2019 - </a> 
-               				<a href="#">Ylies</a>               				
-               			</span>			
-               		</div>
-
-               		<h1 class="entry-title"><a href="single-standard.html">Just a Standard Format Post.</a></h1>
-               		
-               	</div>
-						<div class="entry-excerpt">
-							Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua cillum in consequat consequat in culpa in anim.
-						</div>
-               </div>
-        		</article> 
-<!-- end article -->
-
- <!-- Beginning article -->
-         	<article class="brick entry format-standard animate-this">
-
-               <div class="entry-text">
-               	<div class="entry-header">
-
-               		<div class="entry-meta">
-               			<span class="cat-links">
-               				<a href="#" style="color:grey">20/09/2019 - </a> 
-               				<a href="#">Ylies</a>               				
-               			</span>			
-               		</div>
-
-               		<h1 class="entry-title"><a href="single-standard.html">Just a Standard Format Post.</a></h1>
-               		
-               	</div>
-						<div class="entry-excerpt">
-							Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua cillum in consequat consequat in culpa in anim.
-						</div>
-               </div> 
-        		</article> 
-<!-- end article -->
-
- <!-- Beginning article -->
-         	<article class="brick entry format-standard animate-this">
-
-               <div class="entry-text">
-               	<div class="entry-header">
-
-               		<div class="entry-meta">
-               			<span class="cat-links">
-               				<a href="#" style="color:grey">20/09/2019 - </a> 
-               				<a href="#">Ylies</a>               				
-               			</span>			
-               		</div>
-
-               		<h1 class="entry-title"><a href="single-standard.html">Just a Standard Format Post.</a></h1>
-               		
-               	</div>
-						<div class="entry-excerpt">
-							Lorem ipsum Sed eiusmod esse aliqua sed incididunt aliqua incididunt mollit id et sit proident dolor nulla sed commodo est ad minim elit reprehenderit nisi officia aute incididunt velit sint in aliqua cillum in consequat consequat in culpa in anim.
-						</div>
-               </div>
-        		</article> 
-        		
-       
-<!-- end article -->
-
-
-
-
-
-
+	
+	<!-- Création des articles -->
+	
+	<c:forEach items="${ListeBlog}" var="blog">
+	   	<!--  ${blog.titre}  -->
+	   	<article class="brick entry format-standard animate-this">
+		<div class="entry-text">
+	       	<div class="entry-header">
+	     		<div class="entry-meta">
+		   			<span class="cat-links">
+		   				<a href="" style="color:grey">${blog.dateCreation} - </a> 
+		   				<a href="#">${blog.createur}</a>               				
+		   			</span>			
+	     		</div>
+	       		<h1 class="entry-title"><a href="single-standard.html">${blog.titre}</a></h1>
+	       	</div>
+				<div class="entry-excerpt">
+					${blog.description}
+				</div>
+             </div>
+	   	</article> 
+	</c:forEach>
+	
+	<!-- ./Création des articles -->
 
          </div> <!-- end brick-wrapper --> 
 
