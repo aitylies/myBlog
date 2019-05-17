@@ -155,10 +155,10 @@ public class BlogDao implements IBlogDao
 			ps.setString(2, blog.getDescription());
 			ps.setString(3, blog.getCreateur().getEmail());
 			ps.setInt(4, 1);
-			logger.warn(ps.toString());
+			logger.debug(ps.toString());
 			ps.executeUpdate();
 			con.close();
-			
+			logger.debug(ps);
 		} catch (SQLException e) {
 			myBlog = null;
 			logger.error("Error while getting blog ", e);
@@ -169,7 +169,7 @@ public class BlogDao implements IBlogDao
 					con.close();
 				}
 			} catch (Exception e) {
-				logger.warn("Error while closing connection");
+				logger.error("Error while closing connection");
 			}
 		}
 

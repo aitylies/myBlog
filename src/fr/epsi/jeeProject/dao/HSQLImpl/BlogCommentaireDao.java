@@ -71,6 +71,7 @@ public class BlogCommentaireDao implements IBlogCommentaireDao
 
 			logger.warn(ps.toString());
 			ps.executeUpdate();
+			logger.debug(ps.toString());
 			con.close();
 			
 		} catch (SQLException e) {
@@ -83,7 +84,7 @@ public class BlogCommentaireDao implements IBlogCommentaireDao
 					con.close();
 				}
 			} catch (Exception e) {
-				logger.warn("Error while closing connection");
+				logger.error("Error while closing connection");
 			}
 		}
 
@@ -99,8 +100,7 @@ public class BlogCommentaireDao implements IBlogCommentaireDao
 			con = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost:9003", "SA", "");
 			PreparedStatement ps = con.prepareStatement("DELETE FROM BLOG_COMMENTAIRES WHERE ID = ?");
 			ps.setInt(1,blog.getId());
-
-			logger.warn(ps.toString());
+			logger.debug(ps.toString());
 			ps.executeUpdate();
 			con.close();
 			
